@@ -1,0 +1,112 @@
+// Source code is decompiled from a .class file using FernFlower decompiler (from Intellij IDEA).
+import java.awt.GridLayout;
+import java.util.ArrayList;
+import java.util.Iterator;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+
+public class ExpenseTracker extends JFrame {
+   private ArrayList<Double> amounts = new ArrayList();
+   private ArrayList<String> descriptions = new ArrayList();
+
+   public ExpenseTracker() {
+      this.setTitle("Expense Tracker");
+      this.setSize(400, 300);
+      this.setDefaultCloseOperation(3);
+      this.setLayout(new GridLayout(5, 1, 10, 10));
+      JButton var1 = new JButton("Add Expense");
+      JButton var2 = new JButton("View Expenses");
+      JButton var3 = new JButton("Total Spent");
+      JButton var4 = new JButton("Clear All");
+      JButton var5 = new JButton("Credits");
+      this.add(var1);
+      this.add(var2);
+      this.add(var3);
+      this.add(var4);
+      this.add(var5);
+      var1.addActionListener((var1x) -> {
+         this.addExpense();
+      });
+      var2.addActionListener((var1x) -> {
+         this.viewExpenses();
+      });
+      var3.addActionListener((var1x) -> {
+         this.showTotal();
+      });
+      var4.addActionListener((var1x) -> {
+         this.clearAll();
+      });
+      var5.addActionListener((var1x) -> {
+         this.showCredits();
+      });
+   }
+
+   public void addExpense() {
+      String var1 = JOptionPane.showInputDialog(this, "Enter amount:");
+      if (var1 != null) {
+         try {
+            double var2 = Double.parseDouble(var1);
+            String var4 = JOptionPane.showInputDialog(this, "Enter description:");
+            if (var4 == null || var4.trim().isEmpty()) {
+               var4 = "No description";
+            }
+
+            this.amounts.add(var2);
+            this.descriptions.add(var4);
+            JOptionPane.showMessageDialog(this, "Expense added.");
+         } catch (NumberFormatException var5) {
+            JOptionPane.showMessageDialog(this, "Invalid number.", "Error", 0);
+         }
+
+      }
+   }
+
+   public void viewExpenses() {
+      if (this.amounts.isEmpty()) {
+         JOptionPane.showMessageDialog(this, "No expenses yet.");
+      } else {
+         StringBuilder var1 = new StringBuilder();
+
+         for(int var2 = 0; var2 < this.amounts.size(); ++var2) {
+            var1.append(var2 + 1).append(". $").append(String.format("%.2f", this.amounts.get(var2))).append(" - ").append((String)this.descriptions.get(var2)).append("\n");
+         }
+
+         JOptionPane.showMessageDialog(this, var1.toString(), "Expense List", 1);
+      }
+   }
+
+   public void showTotal() {
+      double var1 = 0.0;
+
+      double var4;
+      for(Iterator var3 = this.amounts.iterator(); var3.hasNext(); var1 += var4) {
+         var4 = (Double)var3.next();
+      }
+
+      Object[] var10002 = new Object[]{var1};
+      JOptionPane.showMessageDialog(this, "Total Spent: $" + String.format("%.2f", var10002));
+   }
+
+   public void clearAll() {
+      int var1 = JOptionPane.showConfirmDialog(this, "Clear all expenses?", "Confirm", 0);
+      if (var1 == 0) {
+         this.amounts.clear();
+         this.descriptions.clear();
+         JOptionPane.showMessageDialog(this, "All expenses cleared.");
+      }
+
+   }
+
+   public void showCredits() {
+      JOptionPane.showMessageDialog(this, "Created by:\nAndrea Lobo & Fernando Gonzalez\nCMPS 4143 - Fall 2025");
+   }
+
+   public static void main(String[] var0) {
+      SwingUtilities.invokeLater(() -> {
+         ExpenseTracker var0 = new ExpenseTracker();
+         var0.setVisible(true);
+      });
+   }
+}
