@@ -13,7 +13,6 @@ This repository contains a collection of programming projects developed as part 
 - Desktop applications with graphical user interfaces
 - Programs with database integration and persistent storage
 - Projects focused on data handling and system organization
-- Web development projects using HTML and CSS
 
 Some projects were completed as part of group work and include proper acknowledgements within their respective folders.
 
