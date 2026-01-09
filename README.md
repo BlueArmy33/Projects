@@ -7,8 +7,6 @@ This repository contains a collection of programming projects developed as part 
 - Python
 - Java
 - C++
-- HTML
-- CSS
 
 ## Project Highlights
 
